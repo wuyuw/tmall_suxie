@@ -1,0 +1,23 @@
+
+项目目标：爬取速写天猫官方旗舰店所有商品信息
+目标 url:https://croquis.m.tmall.com/shop/shop_auction_search.htm?spm=a320p.7692171.0.0&suid=441066172&sort=s
+爬取内容：1.商品id
+        2.商品价格
+        3.商品描述
+        4.商品链接
+        5.商品月销量
+        6.商品总销量
+        7.商品图片
+
+1.通过手机版访问商品列表第一页，分析所有url,发现包含商品数据的url为：
+https://croquis.m.tmall.com/shop/shop_auction_search.do?spm=a320p.7692171.0.0&suid=441066172&sort=s&p=1&page_size=12&from=h5&shop_id=62063122&ajson=1&_tm_source=tmallsearch&callback=jsonp_10809787
+2.通过滚动条向下查看，会有新的请求发出，找出第二个包含商品数据的url：
+https://croquis.m.tmall.com/shop/shop_auction_search.do?spm=a320p.7692171.0.0&suid=441066172&sort=s&p=2&page_size=12&from=h5&shop_id=62063122&ajson=1&_tm_source=tmallsearch&callback=jsonp_90414294
+
+3.尝试删除不必要的参数后得到的url为：
+https://croquis.m.tmall.com/shop/shop_auction_search.do?&sort=s&p=n
+其中只有p=n的n值在变化，从1开始，每次加一（n=1,2,3...）
+
+4.分析相应数据发现存放在字典的"items"对应的值中
+
+5.使用json和re提取需要的数据
